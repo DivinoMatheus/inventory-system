@@ -4,9 +4,8 @@
   "main": "main.js",
   "scripts": {
     "dev": "tsx watch src/main.ts",
-    "predev": "yarn setup-db",
-    "test": "yarn k6 run tests/make-requests.js",
-    "setup-db": "tsx src/setup-db.ts"
+    "test": "k6 run tests/make-requests.js",
+    "setup-db": "tsx src/setup-db-script.ts"
   },
   "keywords": [],
   "author": "",

@@ -29,13 +29,11 @@ async function createInventoryRow() {
   );
 }
 
-async function setupDb() {
+export async function setupDb() {
   await deleteInventoryTable();
   await createInventoryTable();
   await createInventoryRow();
 
   Logger.debug('database setup finished with success');
-  process.exit(0);
 }
 
-setupDb();
