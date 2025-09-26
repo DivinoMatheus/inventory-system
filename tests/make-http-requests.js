@@ -8,13 +8,17 @@ const SUCCESS_LIMIT = 100;
 
 export const options = {
   vus: 20,
-  duration: "15s",
+  duration: "20s",
   thresholds: {
     successful_requests: [`count == ${SUCCESS_LIMIT}`],
   },
 };
 
 export default function () {
+  const sleepTime = Math.floor(Math.random() * 3) + 1;
+  
+  sleep(sleepTime);
+
   const res = http.post("http://localhost:3000/inventory");
 
   const isSuccess = check(res, {
@@ -24,6 +28,4 @@ export default function () {
   if (isSuccess) {
     successCounter.add(1);
   }
-
-  sleep(2);
 }

@@ -4,7 +4,7 @@
   "main": "main.js",
   "scripts": {
     "dev": "tsx watch src/main.ts",
-    "test": "k6 run tests/make-requests.js",
+    "test": "k6 run tests/make-http-requests.js",
     "setup-db": "tsx src/setup-db-script.ts"
   },
   "keywords": [],

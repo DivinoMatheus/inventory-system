@@ -97,7 +97,7 @@ src/
     ├── env.ts              # Environment variable utilities
     └── logger.ts           # Logging configuration
 tests/
-└── make-requests.js        # K6 load tests
+└── make-http-requests.js        # K6 load tests
 ```
 
 ## 🔧 Technologies used
