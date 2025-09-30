@@ -7,12 +7,19 @@ export default async function decrementInventory() {
   const client = await database.connect();
 
   try {
-    client.query('BEGIN')
-    const result = await client.query('SELECT * FROM inventory WHERE productKey = $1 FOR UPDATE;', ['first-product']);
-    const product = result.rows[0];
+    const firstQuery = await client.query('SELECT * FROM inventory WHERE productKey = $1;', ['first-product']);
+    const firstProduct = firstQuery.rows[0];
 
-    if (product.quantity > 0) { 
-      await client.query('UPDATE inventory SET quantity = $1 - 1;', [product.quantity]);
+    if (firstProduct.quantity === 0) { 
+      throw new OutOfStockError();
+    }
+
+    client.query('BEGIN')
+    const secondQuery = await client.query('SELECT * FROM inventory WHERE productKey = $1 FOR UPDATE;', ['first-product']);
+    const secondProduct = secondQuery.rows[0]
+
+    if (secondProduct.quantity > 0) { 
+      await client.query('UPDATE inventory SET quantity = $1 - 1;', [secondProduct.quantity]);
       await client.query('COMMIT');
       return;
     }
